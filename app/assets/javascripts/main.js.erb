@@ -1,0 +1,195 @@
+// http://stackoverflow.com/questions/3010840/loop-through-array-in-javascript
+// http://stackoverflow.com/questions/351495/dynamically-creating-keys-in-javascript-associative-array
+// http://www.w3schools.com/jsref/jsref_undefined.asp
+// http://blog.mridey.com/2010/05/events-markers-infowindows-and-overlays.html
+// https://github.com/alexgibson/shake.js
+// http://gazpo.com/2012/04/password-strength/
+// http://api.jquery.com/keyup/
+// http://api.jquery.com/add/
+// http://api.jquery.com/jQuery.browser/
+// http://www.census.gov/tiger/tms/gazetteer/places2k.txt
+// https://github.com/twitter/bootstrap/issues/452
+// https://github.com/dnagir/spinjs-rails/tree/master/vendor/assets/javascripts
+// http://fgnass.github.com/spin.js/
+// http://api.jquery.com/remove/
+// http://twitter.github.com/bootstrap/javascript.html#tooltips
+// http://stackoverflow.com/questions/9501921/change-twitter-bootstrap-tooltip-content-on-click
+// http://twitter.github.com/bootstrap/javascript.html#collapse
+$(function() {
+  var opera = false
+  var sms_referral = false
+  var email_referral = false
+  var preview_hidden = false
+  var preview_shown = false
+  var delay_options = {show: 1000, hide: 100}
+  jQuery.each(jQuery.browser, function(i, val) {if(i == 'opera'){opera = true}})
+  $('#sms-referral').append("<i class='icon-comment-alt'></i>")
+  $('#email-referral').append("<i class='icon-envelope'></i>")
+  $('#send_referral').append("<i class='icon-share-alt'></i>")
+
+  $('input').click(function() {focused_input_element = $(this)})
+  window.addEventListener('shake', shakeEventDidOccur, false)
+  function shakeEventDidOccur () {focused_input_element.val('')}
+  
+  $('#referral').live('show', function() {
+	if(opera){$('small').remove()}
+    var modal = $(this)
+    modal.css('margin-top', -(modal.outerHeight() / 2))
+    modal.css('margin-left', -(modal.outerWidth() / 2))
+    $('#sms-referral').tooltip({delay: delay_options})
+    $('#email-referral').tooltip({delay: delay_options})
+    $('#sms-referral').attr('title', $('#enable_sms_transmission').text()).tooltip('fixTitle')
+    $('#email-referral').attr('title', $('#enable_email_transmission').text()).tooltip('fixTitle')
+
+    return this;
+  })
+  
+  $('#preview').live('show', function () {
+	$('.preview-body').removeClass('hide')
+    $('#send_referral').css('margin-top', '12px')
+  })
+  
+  $('#preview').live('shown', function () {
+  // do something…
+    preview_shown = true
+    $('.icon-caret-right').remove()
+    $('.preview-title').prepend("<i class='icon-caret-down'></i>")
+  })
+  
+  $('#preview').live('hide', function () {$('#send_referral').css('margin-top', '4px')})
+  
+  $('#preview').live('hidden', function () {
+  // do something…
+    preview_shown = false
+    preview_hidden = true
+    $('.icon-caret-down').remove()
+    $('.preview-title').prepend("<i class='icon-caret-right'></i>")
+  })
+  
+  function disable_referral_modal_elements(){
+	if(email_referral){
+	  $('#email-referral').removeClass('btn btn-success').addClass('btn disabled')
+	  $('#user_email_referral_field').attr('disabled', 'disabled')
+	}
+	if(sms_referral){
+	  $('#sms-referral').removeClass('btn btn-success').addClass('btn disabled')
+	  $('#user_sms_referral_field').attr('disabled', 'disabled')
+	}
+	$('#send_referral').removeClass('btn btn-primary').addClass('btn disabled')
+  }
+  
+  $('#referral').live('hidden', function () {
+    // do something…
+	if(!preview_hidden){
+	  if(!opera){$('#referral').spin(false)}
+	  $('#user_email_referral_field').val('')
+	  $('#user_sms_referral_field').val('')
+	  disable_referral_modal_elements()
+	  sms_referral = false
+	  email_referral = false
+	  $('.preview-body').collapse('hide')
+	  $('.preview-body').addClass('hide')
+	  $('#preview').addClass('hide')
+	}
+	preview_hidden = false
+  })
+  
+  $('#send_referral').live('click', function() {
+	disable_referral_modal_elements()
+	if(!opera){$('#referral').spin({
+	  lines: 11, // The number of lines to draw
+	  length: 7, // The length of each line
+	  width: 4, // The line thickness
+	  radius: 7, // The radius of the inner circle
+	  rotate: 0, // The rotation offset
+	  color: '#000', // #rgb or #rrggbb
+	  speed: 1, // Rounds per second
+	  trail: 60, // Afterglow percentage
+	  shadow: false, // Whether to render a shadow
+	  hwaccel: true, // Whether to use hardware acceleration
+	  className: 'spinner', // The CSS class to assign to the spinner
+	  zIndex: 2e9, // The z-index (defaults to 2000000000)
+	  top: 'auto', // Top position relative to parent in px
+	  left: 'auto' // Left position relative to parent in px
+	})}
+  	$.ajax({
+      type: 'POST',
+      url: '/referrals',
+      data: {
+        'utf8': '✓',
+        'authenticity_token': $("input[name='authenticity_token']").val(),
+		'referral': {
+			'email_address': $('#user_email_referral_field').val(),
+			'phone_number': $('#user_sms_referral_field').val()
+		}
+      },
+      error: function(jqXHR) {},
+      success: function(data) {
+		$('#referral').modal('hide')
+		$.ajax({
+	      type: 'GET',
+	      url: '/sidebar/search',
+	      data: {
+	        'utf8': '✓',
+	        'authenticity_token': $("input[name='authenticity_token']").val()
+	      },
+	      error: function(jqXHR) {},
+	      success: function(data) {$('#content').html(data)}
+	    })
+      }
+    })
+  })
+
+  function adjust(){
+	if(preview_shown){
+	  $('.preview-body').collapse('hide')
+	  $('.preview-body').addClass('hide')
+	  preview_shown = false
+	}
+	$('.icon-caret-down').remove()
+    $('.preview-title').prepend("<i class='icon-caret-right'></i>")
+	$('#send_referral').removeClass('btn btn-primary').addClass('btn disabled')
+    $('#preview').addClass('hide')
+  }
+
+  function adjust1(link){
+    $('#preview').removeClass('hide')
+	$(link).removeClass('disabled').addClass('btn btn-success')	
+  }
+  
+  $('#sms-referral').live('click', function() {
+    var link = $(this)
+    if(!sms_referral){
+	  adjust1(link)
+	  sms_referral = true
+	  $('#user_sms_referral_field').removeAttr('disabled')
+	  $('#send_referral').removeClass('btn disabled').addClass('btn btn-primary')
+	  $(link).attr('title', $('#disable_sms_transmission').text()).tooltip('fixTitle').tooltip('show')
+	} else{
+	  $(link).removeClass('btn btn-success').addClass('btn disabled')
+	  sms_referral = false
+	  $('#user_sms_referral_field').attr('disabled', 'disabled')
+	  $(link).attr('title', $('#enable_sms_transmission').text()).tooltip('fixTitle').tooltip('show')
+	  if(!sms_referral && !email_referral) {adjust()}
+	}
+    return false
+  })
+  
+  $('#email-referral').live('click', function() {
+    var link = $(this)
+    if(!email_referral){
+	  adjust1(link)
+	  email_referral = true
+	  $('#user_email_referral_field').removeAttr('disabled')
+	  $('#send_referral').removeClass('btn disabled').addClass('btn btn-primary')
+	  $(link).attr('title', $('#disable_email_transmission').text()).tooltip('fixTitle').tooltip('show')
+	} else{
+	  $(link).removeClass('btn btn-success').addClass('btn disabled')
+	  email_referral = false
+	  $('#user_email_referral_field').attr('disabled', 'disabled')
+	  $(link).attr('title', $('#enable_email_transmission').text()).tooltip('fixTitle').tooltip('show')
+	  if(!sms_referral && !email_referral) {adjust()}
+	}
+    return false
+  })
+})

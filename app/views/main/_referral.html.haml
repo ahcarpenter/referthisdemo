@@ -1,0 +1,35 @@
+/ http://twitter.github.com/bootstrap/javascript.html#modals
+/ http://html2haml.heroku.com/
+#referral.modal.hide.fade
+  .modal-header
+    %a{:class => 'close', :'data-dismiss' => 'modal', :href => ''}
+      %i.icon-remove
+    %h3
+      = t('titles.referral')
+  .modal-body
+    = form_for :user, :html => {:id => 'referral-form', :class => 'form-vertical'} do |f|
+      %label{:for => 'email_referral_field', :id => 'user-email-label'}
+        = t('labels.email')
+      %a{:id => 'email-referral', :class => 'btn disabled'}
+      = f.email_field 'email_referral_field', 'disabled' => 'disabled'
+      %label{:for => 'sms_referral_field', :id => 'user-sms-number-label'}
+        = t('labels.sms_number')
+      %a{:id => 'sms-referral', :class => 'btn disabled'}
+      = f.telephone_field 'sms_referral_field', :placeholder => t('defaults.sms_number'), 'disabled' => 'disabled'
+  .modal-footer
+    #preview.hide
+      .preview-title{'data-toggle' => 'collapse', 'data-target' => '.preview-body'}
+        %i.icon-caret-right
+        = t('labels.preview')
+      .preview-body.collapse
+        = '<user_name> has referred you to <app_name>. You might be interested in checking out the following: <url>' + Base64::encode64((1).to_s).chop + '.'
+    %a.btn.disabled{:href => '#', :id => 'send_referral'}
+      = t('buttons.send_referral')
+    #disable_email_transmission.hide
+      = t('labels.disable_email_transmission')
+    #enable_email_transmission.hide
+      = t('labels.enable_email_transmission')
+    #disable_sms_transmission.hide
+      = t('labels.disable_sms_transmission')
+    #enable_sms_transmission.hide
+      = t('labels.enable_sms_transmission')
