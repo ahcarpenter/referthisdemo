@@ -1,12 +1,8 @@
 class MainController < ApplicationController
-  # require 'active_record'
-
   def index
-    # Referral.generate_referral(params[:referral], 1) if !params[:referral].nil?
-    # ReferThis.setup
-    # puts __FILE__
-    # ReferThis.setup
-    # puts request.url
     ReferThis.url(params[:referral], 1, request.base_url, 'Drew') if !params[:referral].nil?
+    @email_clicked_through_rate = ReferThis.clicked_through_rate(true, true)['email']
+    @sms_clicked_through_rate = ReferThis.clicked_through_rate(true, true)['sms']
+    @overall_clicked_through_rate = ReferThis.clicked_through_rate(true, true)['overall']
   end
 end

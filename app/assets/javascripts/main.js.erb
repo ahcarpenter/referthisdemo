@@ -126,16 +126,7 @@ $(function() {
       error: function(jqXHR) {},
       success: function(data) {
 		$('#referral').modal('hide')
-		$.ajax({
-	      type: 'GET',
-	      url: '/sidebar/search',
-	      data: {
-	        'utf8': '✓',
-	        'authenticity_token': $("input[name='authenticity_token']").val()
-	      },
-	      error: function(jqXHR) {},
-	      success: function(data) {$('#content').html(data)}
-	    })
+		$('#content').html(data)
       }
     })
   })
