@@ -5,8 +5,11 @@
   #area
     #rates
       %i.icon-envelope
-      #rate
+      #rate{'data-title'=>'Email clicked through rate'}
         = @email_clicked_through_rate.to_s + '%'
       %i.icon-comment-alt
-      #rate
+      #rate1{'data-title'=>'SMS clicked through rate'}
         = @sms_clicked_through_rate.to_s + '%'
+      %i.icon-inbox
+      #rate2{'data-title'=>'Overall clicked through rate'}
+        = @overall_clicked_through_rate.to_s + '%'
