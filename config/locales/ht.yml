@@ -98,7 +98,7 @@ ht:
     edit_profile: 'Edit pwofil ou'
     main: "Adopt-a-%{thing}"
     ofline: "nan %{organization}"
-    referral: 'Refere'
+    referral: 'Refere sa a'
     sign_in: "Log in adopte sa a %{thing}"
     thank_you: "Mèsi pou adopte sa a %{thing}!"
     tos: 'Tèm de Sèvis'

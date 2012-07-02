@@ -98,7 +98,7 @@ iw:
     edit_profile: 'ערוך את הפרופיל שלך'
     main: "Adopt-a-%{thing}"
     ofline: "של %{organization}"
-    referral: 'להפנות'
+    referral: 'מתייחסים זה'
     sign_in: "היכנסו, על מנת לאמץ את %{thing}"
     thank_you: "תודה על אימוץ %{thing}!"
     tos: 'תנאי שימוש'

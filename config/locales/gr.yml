@@ -98,7 +98,7 @@ gr:
     edit_profile: 'Επεξεργασία του προφίλ σας'
     main: "Adopt-a-%{thing}"
     ofline: "του %{organization}"
-    referral: 'Ανατρέξτε'
+    referral: 'Ανατρέξτε αυτό'
     sign_in: "Συνδεθείτε, για να υιοθετήσουν αυτό %{thing}"
     thank_you: "Σας ευχαριστούμε για την έγκριση αυτής %{thing}!"
     tos: 'Όροι Χρήσης'

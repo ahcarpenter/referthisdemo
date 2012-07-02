@@ -98,7 +98,7 @@ ar:
     edit_profile: 'تعديل ملفك الشخصي'
     main: "Adopt-a-%{thing}"
     ofline: "من %{organization}"
-    referral: 'الرجوع'
+    referral: 'تشير هذه'
     sign_in: "تسجيل الدخول إلى تبني هذا %{thing}"
     thank_you: "أشكركم على اعتماد هذه %{thing}!"
     tos: 'شروط الخدمة'

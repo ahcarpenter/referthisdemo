@@ -99,7 +99,7 @@ fr:
     edit_profile: 'Modifiez votre profil'
     main: "Adopt-a-%{thing}"
     ofline: "de %{organization}"
-    referral: 'Référer'
+    referral: 'Reportez-vous cette'
     sign_in: "Connectez-vous à adopter cette %{thing}"
     thank_you: "Merci pour l'adoption de cette %{thing}!"
     tos: "Conditions D'utilisation"

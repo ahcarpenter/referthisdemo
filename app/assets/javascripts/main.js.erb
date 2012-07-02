@@ -26,6 +26,11 @@ $(function() {
   $('#sms-referral').append("<i class='icon-comment-alt'></i>")
   $('#email-referral').append("<i class='icon-envelope'></i>")
   $('#send_referral').append("<i class='icon-share-alt'></i>")
+  // alert($('.icon-dashboard').outerWidth())
+  // alert($(window).outerWidth()/2)
+  $('.icon-dashboard').css('margin-left', $(window).outerWidth()/2-110)
+  $('#content').css('margin-top', $(window).outerHeight()/2-110) 
+  // $(document).ready(function(){$('.icon-dashboard').css('margin-left', (screen.width()/2)))})
 
   $('input').click(function() {focused_input_element = $(this)})
   window.addEventListener('shake', shakeEventDidOccur, false)
@@ -126,7 +131,20 @@ $(function() {
       error: function(jqXHR) {},
       success: function(data) {
 		$('#referral').modal('hide')
-		$('#content').html(data)
+		$.ajax({
+	      type: 'GET',
+	      url: '/sidebar/search',
+	      data: {
+	        'utf8': '✓',
+	        'authenticity_token': $("input[name='authenticity_token']").val(),
+			'flash': {'notice': 'notices.referral_sent'}
+	      },
+	      error: function(jqXHR) {},
+	      success: function(data) {
+		    $('#content').html(data)
+			prepare_search_elements()
+	      }
+	    })
       }
     })
   })

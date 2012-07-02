@@ -98,7 +98,7 @@ kr:
     edit_profile: '프로필을 편집'
     main: "Adopt-a-%{thing}"
     ofline: "중 %{organization}"
-    referral: '참조'
+    referral: '이것을 참조'
     sign_in: '이 급수전을 채택 로그인'
     thank_you: '이 급수전을 채택 주셔서 감사합니다!'
     tos: '서비스 약관'

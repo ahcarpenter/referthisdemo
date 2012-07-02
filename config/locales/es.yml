@@ -98,7 +98,7 @@ es:
     edit_profile: 'Edita tu perfil'
     main: "Adopt-a-%{thing}"
     ofline: "de %{organization}"
-    referral: 'Remitir'
+    referral: 'Consulte este'
     sign_in: "Acceda a esta adopción %{thing}"
     thank_you: "Gracias por la adopción de esta %{thing}!"
     tos: 'Términos de Servicio'

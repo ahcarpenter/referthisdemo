@@ -98,7 +98,7 @@ ru:
     edit_profile: 'Изменить профиль'
     main: "Adopt-a-%{thing}"
     ofline: "из %{organization}"
-    referral: 'обращаться'
+    referral: 'См. этого'
     sign_in: "Войти принять это %{thing}"
     thank_you: "Благодарим Вас за принятие этого %{thing}!"
     tos: 'Условия предоставления услуг'

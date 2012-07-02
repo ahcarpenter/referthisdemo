@@ -101,7 +101,7 @@ en:
     edit_profile: 'Edit your profile'
     main: "Adopt-a-%{thing}"
     ofline: "of %{organization}"
-    referral: 'Refer'
+    referral: 'Refer this'
     sign_in: "Log in to adopt this %{thing}"
     thank_you: "Thank you for adopting this %{thing}!"
     tos: 'Terms of Service'

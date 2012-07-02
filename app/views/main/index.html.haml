@@ -1,9 +1,12 @@
 #content
-  = link_to t('titles.referral'), '', 'data-toggle' => 'modal', 'data-target' => '#referral'
+  #referrallink
+    = link_to t('titles.referral'), '', 'data-toggle' => 'modal', 'data-target' => '#referral'
   = render :partial => 'referral'
-  %p
-  = 'Email clicked through rate: ' + @email_clicked_through_rate.to_s
-  %br
-  = 'SMS clicked through rate: ' + @sms_clicked_through_rate.to_s
-  %br
-  = 'Overall clicked through rate: ' + @overall_clicked_through_rate.to_s
+  #area
+    #rates
+      %i.icon-envelope
+      #rate
+        = @email_clicked_through_rate.to_s + '%'
+      %i.icon-comment-alt
+      #rate
+        = @sms_clicked_through_rate.to_s + '%'

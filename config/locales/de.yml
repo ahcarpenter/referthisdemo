@@ -100,7 +100,7 @@ de:
     edit_profile: 'Ihr Profil bearbeiten'
     main: "Adopt-a-%{thing}"
     ofline: "der %{organization}"
-    referral: 'Verweisen'
+    referral: 'Siehe diese'
     sign_in: "Melden Sie sich an, um diesen %{thing} übernehmen"
     thank_you: "Vielen Dank für die Annahme dieser %{thing}!"
     tos: 'Nutzungsbedingungen'
