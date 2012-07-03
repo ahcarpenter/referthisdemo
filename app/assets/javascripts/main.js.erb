@@ -193,6 +193,7 @@ $(function() {
   
   $('#email-referral').live('click', function() {
     var link = $(this)
+    $('#user_email_referral_field').parent().removeClass('error')
     if(!email_referral){
 	  adjust1(link)
 	  email_referral = true
