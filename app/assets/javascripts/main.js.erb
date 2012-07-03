@@ -73,6 +73,7 @@ $(function() {
   
   function disable_referral_modal_elements(){
 	if(email_referral){
+	  $('#email-referral').removeClass('btn btn-danger')
 	  $('#email-referral').removeClass('btn btn-success').addClass('btn disabled')
 	  $('#user_email_referral_field').attr('disabled', 'disabled')
 	}
@@ -104,6 +105,7 @@ $(function() {
     if(!/[\w\.%\+]+@[\w]+\.+[\w]{2,}/.test($('#user_email_referral_field').val())) {
       errors.push($('#user_email_referral_field'))
       $('#user_email_referral_field').parent().addClass('error')
+      $('#email-referral').removeClass('btn btn-success').addClass('btn btn-danger')
     } else {
 	  $('#user_email_referral_field').parent().removeClass('error')
 	  disable_referral_modal_elements()
@@ -194,6 +196,7 @@ $(function() {
   $('#email-referral').live('click', function() {
     var link = $(this)
     $('#user_email_referral_field').parent().removeClass('error')
+    $(this).removeClass('btn btn-danger')
     if(!email_referral){
 	  adjust1(link)
 	  email_referral = true
