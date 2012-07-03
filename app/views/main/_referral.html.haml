@@ -8,10 +8,11 @@
       = t('titles.referral')
   .modal-body
     = form_for :user, :html => {:id => 'referral-form', :class => 'form-vertical'} do |f|
-      %label{:for => 'email_referral_field', :id => 'user-email-label'}
-        = t('labels.email')
-      %a{:id => 'email-referral', :class => 'btn disabled'}
-      = f.email_field 'email_referral_field', 'disabled' => 'disabled'
+      .control-group
+        %label{:for => 'email_referral_field', :id => 'user-email-label'}
+          = t('labels.email')
+        %a{:id => 'email-referral', :class => 'btn disabled'}
+        = f.email_field 'email_referral_field', 'disabled' => 'disabled'
       %label{:for => 'sms_referral_field', :id => 'user-sms-number-label'}
         = t('labels.sms_number')
       %a{:id => 'sms-referral', :class => 'btn disabled'}

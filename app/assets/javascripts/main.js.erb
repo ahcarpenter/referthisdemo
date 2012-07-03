@@ -29,10 +29,9 @@ $(function() {
   $('.icon-dashboard').css('margin-left', $(window).outerWidth()/2-110)
   $('#content').css('margin-top', $(window).outerHeight()/2-220)
   $('#content').css('margin-bottom', $(window).outerHeight()/2-220)
-  $('#rate').tooltip()
-  $('#rate1').tooltip()
-  $('#rate2').tooltip()
-
+  $('#rate').tooltip(delay_options)
+  $('#rate1').tooltip(delay_options)
+  $('#rate2').tooltip(delay_options)
   $('input').click(function() {focused_input_element = $(this)})
   window.addEventListener('shake', shakeEventDidOccur, false)
   function shakeEventDidOccur () {focused_input_element.val('')}
@@ -101,53 +100,60 @@ $(function() {
   })
   
   $('#send_referral').live('click', function() {
-	disable_referral_modal_elements()
-	if(!opera){$('#referral').spin({
-	  lines: 11, // The number of lines to draw
-	  length: 7, // The length of each line
-	  width: 4, // The line thickness
-	  radius: 7, // The radius of the inner circle
-	  rotate: 0, // The rotation offset
-	  color: '#000', // #rgb or #rrggbb
-	  speed: 1, // Rounds per second
-	  trail: 60, // Afterglow percentage
-	  shadow: false, // Whether to render a shadow
-	  hwaccel: true, // Whether to use hardware acceleration
-	  className: 'spinner', // The CSS class to assign to the spinner
-	  zIndex: 2e9, // The z-index (defaults to 2000000000)
-	  top: 'auto', // Top position relative to parent in px
-	  left: 'auto' // Left position relative to parent in px
-	})}
-  	$.ajax({
-      type: 'POST',
-      url: '/referrals',
-      data: {
-        'utf8': '✓',
-        'authenticity_token': $("input[name='authenticity_token']").val(),
-		'referral': {
-			'email_address': $('#user_email_referral_field').val(),
-			'phone_number': $('#user_sms_referral_field').val()
-		}
-      },
-      error: function(jqXHR) {},
-      success: function(data) {
-		$('#referral').modal('hide')
-		$.ajax({
-	      type: 'GET',
-	      url: '/sidebar/search',
-	      data: {
-	        'utf8': '✓',
-	        'authenticity_token': $("input[name='authenticity_token']").val(),
-			'flash': {'notice': 'notices.referral_sent'}
-	      },
-	      error: function(jqXHR) {},
-	      success: function(data) {
-		    $('#content').html(data)
-			prepare_search_elements()
-	      }
-	    })
-      }
-    })
+	var errors = []
+    if(!/[\w\.%\+]+@[\w]+\.+[\w]{2,}/.test($('#user_email_referral_field').val())) {
+      errors.push($('#user_email_referral_field'))
+      $('#user_email_referral_field').parent().addClass('error')
+    } else {
+	  $('#user_email_referral_field').parent().removeClass('error')
+	  disable_referral_modal_elements()
+	  if(!opera){$('#referral').spin({
+	    lines: 11, // The number of lines to draw
+		length: 7, // The length of each line
+		width: 4, // The line thickness
+		radius: 7, // The radius of the inner circle
+		rotate: 0, // The rotation offset
+		color: '#000', // #rgb or #rrggbb
+		speed: 1, // Rounds per second
+		trail: 60, // Afterglow percentage
+		shadow: false, // Whether to render a shadow
+		hwaccel: true, // Whether to use hardware acceleration
+		className: 'spinner', // The CSS class to assign to the spinner
+		zIndex: 2e9, // The z-index (defaults to 2000000000)
+		top: 'auto', // Top position relative to parent in px
+		left: 'auto' // Left position relative to parent in px
+	  })}
+	  $.ajax({
+	    type: 'POST',
+	    url: '/referrals',
+	    data: {
+	      'utf8': '✓',
+	      'authenticity_token': $("input[name='authenticity_token']").val(),
+		  'referral': {
+		    'email_address': $('#user_email_referral_field').val(),
+		    'phone_number': $('#user_sms_referral_field').val()
+		  }
+	    },
+	    error: function(jqXHR) {},
+	    success: function(data) {
+	      $('#referral').modal('hide')
+		  $.ajax({
+		    type: 'GET',
+		    url: '/sidebar/search',
+		    data: {
+		      'utf8': '✓',
+		      'authenticity_token': $("input[name='authenticity_token']").val(),
+			  'flash': {'notice': 'notices.referral_sent'}
+		    },
+		    error: function(jqXHR) {},
+		    success: function(data) {
+			  $('#content').html(data)
+		      prepare_search_elements()
+		    }
+		  })
+	    }
+	  })
+    }
   })
 
   function adjust(){
