@@ -23,7 +23,7 @@
         %i.icon-caret-right
         = t('labels.preview')
       .preview-body.collapse
-        = '<user_name> has referred you to <app_name>. You might be interested in checking out the following: <url>' + Base64::encode64((1).to_s).chop + '.'
+        = '<user_name> has referred you to <app_name>! You might be interested in checking out the following: <url>' + Base64::encode64((1).to_s).chop + '.'
     %a.btn.disabled{:href => '#', :id => 'send_referral'}
       = t('buttons.send_referral')
     #disable_email_transmission.hide
