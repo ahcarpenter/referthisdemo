@@ -1,5 +1,7 @@
 / http://twitter.github.com/bootstrap/javascript.html#modals
 / http://html2haml.heroku.com/
+/ http://www.w3schools.com/jsref/prop_loc_protocol.asp
+/ http://www.w3schools.com/jsref/prop_loc_hostname.asp
 #referral.modal.hide.fade
   .modal-header
     %a{:class => 'close', :'data-dismiss' => 'modal', :href => ''}
@@ -23,7 +25,7 @@
         %i.icon-caret-right
         = t('labels.preview')
       .preview-body.collapse
-        = '<user_name> has referred you to <app_name>! You might be interested in checking out the following: <url>' + Base64::encode64((1).to_s).chop + '.'
+        = '<user_name> has referred you to <app_name>! You might be interested in checking out the following: <protocol>//<hostname>/<referral_token>.'
     %a.btn.disabled{:href => '#', :id => 'send_referral'}
       = t('buttons.send_referral')
     #disable_email_transmission.hide
