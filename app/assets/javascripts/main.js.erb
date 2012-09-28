@@ -35,7 +35,11 @@ $(function() {
   $('input').click(function() {focused_input_element = $(this)})
   window.addEventListener('shake', shakeEventDidOccur, false)
   function shakeEventDidOccur () {focused_input_element.val('')}
-  
+  var chrome=false
+  var mobile = navigator.userAgent.indexOf('Mobi') != -1
+  jQuery.each(jQuery.browser, function(i, val){if(i == 'chrome'){chrome = true}})
+  if(chrome && !mobile){$('#email-referral').css('margin-bottom', '-28px')}
+
   $('#referral').live('show', function() {
 	if(opera){$('small').remove()}
     var modal = $(this)
